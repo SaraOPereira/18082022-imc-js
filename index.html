@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalho 18/08/2022 - Javascript</title>
+</head>
+<body>
+    <div id="content">
+        <h1>Calcule seu IMC</h1>
+        <div class="flex">
+            <div class="form-group">
+                <label for="peso">Peso (em kg)</label>
+                <input type="number" name="peso" id="peso" class="form-control" placeholder="Peso atual">
+            </div>
+            <div class="form-group">
+                <label for="altura">Altura (em centímetros)</label>
+                <input type="number" name="altura" id="altura" class="form-control" placeholder="Altura">
+            </div>
+        </div>
+        <button id="btn-imc">Calcular Resultado</button>
+        <div class="result">
+            <h2>Seu IMC</h2>
+            <p id="imc"></p>
+            <button id="btn-limpar">Limpar</button>
+        </div>
+    </div>
+    <script>
+        var btnImc = document.querySelector('button#btn-imc');
+        btnImc.addEventListener("click", function(e){
+            var peso = document.querySelector("input#peso");            
+            if(peso.value == 0 || peso.value == null){
+                alert("Peso está vazio!");
+                peso.focus();
+                return;
+            }
+            
+            var altura = document.querySelector("input#altura");
+            if(altura.value == 0 || altura.value == null){
+                alert("Altura está vazia!");
+                altura.focus();
+                return;
+            }
+            
+            altura = altura.value / 100;
+            var imc = (peso.value / (altura * altura));
+
+            var resultado = document.querySelector("p#imc");
+            if (imc < 18.5) {
+                resultado.innerHTML = "Magreza, quando o resultado é menor que 18,5 kg/m2";
+                resultado.style.color = "yellow";
+            } else if (imc >= 18.5 && imc < 24.9){
+                resultado.innerHTML = "Normal, quando o resultado está entre 18,5 e 24,9 kg/m2";
+                resultado.style.color = "green";
+            } else if (imc >= 24.9 && imc < 30){
+                resultado.innerHTML = "Sobrepeso, quando o resultado está entre 24,9 e 30 kg/m2";
+                resultado.style.color = "orange";
+            } else if (imc >= 30){
+                resultado.innerHTML = "Obesidade, quando o resultado é maior que 30 kg/m2";
+                resultado.style.color = "red";
+            }
+
+            document.querySelector(".result").style.display = "block";
+        });
+
+        var btnLimpar = document.getElementById("btn-limpar");
+        btnLimpar.addEventListener("click", function(){
+            document.querySelector(".result").style.display = "none";
+            document.querySelector("input#peso").value = null;
+            document.querySelector("input#altura").value = null;
+        });
+    </script>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+        #content h1{
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+        }
+        label{
+            display: block;
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: 400;
+        }
+        .flex{
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 45px;
+            width: 80%;
+            margin: auto;
+        }
+        .form-group:first-child{
+            margin-right: 30px;
+        }
+        .form-group{
+            text-align: center;
+        }
+        input{
+            display: block;
+            margin: auto;
+            width: auto;
+            border: 1px solid #dedede;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button{
+            display: block;
+            margin: auto;
+            border: none;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        button#btn-imc{
+            background: green;
+        }
+        button#btn-limpar{
+            background: rgb(185, 9, 9);
+        }
+        h2{
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        p#imc{
+            font-size: 18px;
+            text-align: center;
+            display: block;
+        }
+        .result{
+            display: none;
+            background: #424242;
+            width: 80%;
+            margin: 45px auto 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        @media(min-width: 768px){
+            .flex{
+                width: 60%;
+            }
+        }
+    </style>
+</body>
+</html>
